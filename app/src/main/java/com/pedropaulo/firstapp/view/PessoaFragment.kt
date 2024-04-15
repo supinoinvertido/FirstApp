@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.pedropaulo.firstapp.databinding.FragmentCalculoBinding
+import androidx.navigation.fragment.findNavController
+import com.pedropaulo.firstapp.databinding.FragmentPessoaBinding
 import com.pedropaulo.firstapp.service.model.Pessoa
 import com.pedropaulo.firstapp.viewmodel.PessoaViewModel
 import java.time.LocalDateTime
@@ -16,8 +17,8 @@ import java.time.LocalDateTime
 class PessoaFragment : Fragment() {
     private val viewModel: PessoaViewModel by   viewModels ()
     // TODO: Rename and change types of parameters
-    private var _binding: FragmentCalculoBinding? = null
-    private val binding: FragmentCalculoBinding get() = _binding!!
+    private var _binding: FragmentPessoaBinding? = null
+    private val binding: FragmentPessoaBinding get() = _binding!!
 
 
 
@@ -26,7 +27,7 @@ class PessoaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentCalculoBinding.inflate(inflater, container, false)
+        _binding = FragmentPessoaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,20 +37,37 @@ class PessoaFragment : Fragment() {
         binding.btnEnviar.setOnClickListener{
             var nome = binding.edtNome.editableText.toString()
             var anoNascimento = binding.edtAnoNascimento.editableText.toString()
+
             if(nome  != ""&& anoNascimento != ""){
+                var sexo = ""
+                var faixa = ""
 
-                binding.tvNome.text = "Nome: ${nome}"
-
+                if (binding.rbHomem.isChecked) {
+                    sexo = "Homem"
+                } else {
+                    sexo = "Mulher"
+                }
 
                 val  anoAtual = LocalDateTime.now().year
                 val idade = anoAtual - anoNascimento.toInt()
 
-                binding.tvIdade.text = "Idade: ${idade}"
+
+
+                when (idade) {
+                    in 0..12 -> faixa = "Infantil"
+                    in 13..17 -> faixa = "Adolescente"
+                    in 18..64 -> faixa = "Adulto"
+                    in 65..150 -> faixa = "Idoso"
+                    else -> faixa = "Voce não existe"
+                }
+
 
 
                 val pessoa = Pessoa(
                     nome = nome,
-                    idade = idade
+                    idade = idade,
+                    sexo = sexo,
+                    faixaEtaria = faixa
                 )
 
 
@@ -57,6 +75,7 @@ class PessoaFragment : Fragment() {
 
                 binding.edtNome.editableText.clear()
                 binding.edtAnoNascimento.editableText.clear()
+                findNavController().navigateUp()
 
             } else {
                 Toast.makeText(requireContext(), "Digite os dados", Toast.LENGTH_LONG).show()

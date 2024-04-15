@@ -28,8 +28,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnCalculo.setOnClickListener{
-            findNavController().navigate(R.id.calculoFragment)}
+        binding.btnCadastropessoa.setOnClickListener{
+            findNavController().navigate(R.id.allPessoasFragment)}
+
         binding.btnVerifica.setOnClickListener{
             findNavController().navigate(R.id.verificaFragment)
         }

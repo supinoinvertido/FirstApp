@@ -32,15 +32,15 @@ class VerificaFragment : Fragment() {
                 binding.tvTelefone.text = "Telefone: ${telefone}"
             } else {
                 binding.tvTelefone.text = "Telefone: Inválido"
+            }
 
-                var email = binding.emailEditText.editableText.toString()
-                if (email.contains("@") && email.substringAfter("@").contains(".com")) {
-                    binding.tvEmail.text = "E-mail: ${email}"
-                } else {
-                    binding.tvEmail.text = "E-mail: Inválido"
-                }
+            var email = binding.emailEditText.editableText.toString()
+            if (email.contains("@") && email.substringAfter("@").contains(".com")) {
+                binding.tvEmail.text = "E-mail: ${email}"
+            } else {
+                binding.tvEmail.text = "E-mail: Inválido"
+            }
 
             }
         }
     }
-}
