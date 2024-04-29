@@ -1,5 +1,6 @@
 package com.pedropaulo.firstapp.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,11 +35,16 @@ class PessoaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //carregar a pessoa caso tenha selecionado
+        arguments?.let {
+            viewModel.getPessoa(it.getInt("pessoaId"))
+        }
+
         binding.btnEnviar.setOnClickListener{
             var nome = binding.edtNome.editableText.toString()
             var anoNascimento = binding.edtAnoNascimento.editableText.toString()
 
-            if(nome  != ""&& anoNascimento != ""){
+            if(nome  != ""&& anoNascimento != "" && binding.rbHomem.isChecked || binding.rbMulher.isChecked){
                 var sexo = ""
                 var faixa = ""
 
@@ -70,8 +76,15 @@ class PessoaFragment : Fragment() {
                     faixaEtaria = faixa
                 )
 
+                viewModel.pessoa.value?.let {
 
-                viewModel.insert(pessoa)
+                    pessoa.id = it.id
+                    viewModel.update(pessoa)
+
+                } ?: run {
+                    viewModel.insert(pessoa)
+                }
+
 
                 binding.edtNome.editableText.clear()
                 binding.edtAnoNascimento.editableText.clear()
@@ -83,7 +96,34 @@ class PessoaFragment : Fragment() {
 
 
         }
+
+        binding.btnDeletar.setOnClickListener{
+            AlertDialog.Builder(requireContext())
+                .setTitle("Exclusão de pessoa")
+                .setMessage("Você realmente deseja excluir?")
+                .setPositiveButton("Sim"){ _,_ ->
+                    viewModel.delete(viewModel.pessoa.value?.id ?: 0)
+                    findNavController().navigateUp()
+                }
+                .setNegativeButton("Não"){_,_ -> }
+                .show()
+
+        }
+
+        viewModel.pessoa.observe(viewLifecycleOwner){pessoa ->
+            binding.edtNome.setText(pessoa.nome)
+            binding.edtAnoNascimento.setText((LocalDateTime.now().year- pessoa.idade).toString())
+
+            if (pessoa.sexo == "Homem") {
+                binding.rbHomem.isChecked = true
+            } else {
+                binding.rbHomem.isChecked = true
+            }
+
+            binding.btnDeletar.visibility = View.VISIBLE
+            }
+        }
     }
-}
+
 
 //            binding.tvIdade.text = "idade: ${2024 - idade.toInt()}"

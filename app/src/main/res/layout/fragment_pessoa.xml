@@ -33,21 +33,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Digite seu ano de nascimento"
         android:inputType="number"
-        android:maxLength="4"
-        android:hint="Digite seu ano de nascimento" />
-    <RadioButton
-        android:id="@+id/rbHomem"
+        android:maxLength="4" />
+
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Homem"
-        android:textStyle="bold" />
-    <RadioButton
-        android:id="@+id/rbMulher"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mulher"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/rbHomem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Homem"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbMulher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mulher"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+
 
     <Button
         android:id="@+id/btnEnviar"
@@ -56,8 +64,19 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:text="Enviar"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        style="@style/Widget.Material3.Button.OutlinedButton"/>
+
+    <Button
+        android:id="@+id/btnDeletar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Excluir"
+        android:layout_marginTop="20dp"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:visibility="invisible"
+        />
 
 
 </LinearLayout>

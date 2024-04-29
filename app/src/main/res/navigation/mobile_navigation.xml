@@ -27,5 +27,10 @@
         android:name="com.pedropaulo.firstapp.view.AllPessoasFragment"
         android:label="Pessoas"
         tools:layout="@layout/fragment_all_pessoas" />
+    <fragment
+        android:id="@+id/pessoaDetailFragment"
+        android:name="com.pedropaulo.firstapp.view.PessoaDetailFragment"
+        android:label="fragment_pessoa_detail"
+        tools:layout="@layout/fragment_pessoa_detail" />
 
 </navigation>

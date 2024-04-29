@@ -11,13 +11,18 @@ import com.pedropaulo.firstapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    //Criar a toolbar
+
     private lateinit var appBarConfiguration: AppBarConfiguration
+    //criara a navegação
     private lateinit var navController: NavController
 
+    //Criar o binding
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Configura o binding
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
